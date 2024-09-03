@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block start %}
+
+        <div class="navbar">
+            <div class="nav-logo border">
+                <div class="logo"></div>
+            </div>
+            <div class="nav-name border">
+                <h1>JSPM's Bhagwant Institute of Technology,Barshi</h1>
+            </div>
+            <div class="home">
+                <i class="fa-solid fa-house border"></i>
+                <a href="index.html">Home</a>
+                <a href="https://bitbarshi.edu.in/trust/index.html">ABOUT Us</a>
+                <!-- <a href="Login.html">Log-in</a> -->
+
+                <div class="dropdown">
+                    <a class="dropbtn">Login</a>
+                    <div class="dropdown-content">
+                      <a href="Login.html">Student</a>
+                      <a href="Login.html">Librarian</a>
+                    </div>
+                  </div> 
+
+                <a href="Sign-up.html">Sign-up</a>
+            </div>
+        </div>
+
+        <div class="store">
+            <div class="panel">
+                <p>All</p>
+                <p>New Launched</p>
+                <p>Branch</p>
+                <p>E-Book</p>
+                <p>Jurnals</p>
+                <p>Programming</p>
+            </div>
+            <div class="quantity">
+                <p>6 Branches</p>
+                <p>4000 Books</p>
+                <p>500 Jurnals</p>
+            </div>
+        </div>
+
+        <div class="book_sec">
+        <div class="search">
+            <select class="search-select">
+                <option>All</option>
+                <option>New Launched</option>
+                <option>Branch</option>
+                <option>E-Book</option>
+                <option>Jurnals</option>
+                <option>Programming</option>
+            </select>
+            <input placeholder="Search Book,Jurnals" class="search-input">
+            <div class="search-icon">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+    
+        <div class="slideshow-container">
+
+            <div class="mySlides fade">
+              <div class="numbertext">1 / 3</div>
+              <img src="slide/Civil.jpg" style="width:100%">
+              <div class="text">Civil Department</div>
+            </div>
+            
+            <div class="mySlides fade">
+              <div class="numbertext">2 / 3</div>
+              <img src="slide/computer.jpg" style="width:100%">
+              <div class="text">Computer Science & Engineering</div>
+            </div>
+            
+            <div class="mySlides fade">
+              <div class="numbertext">3 / 3</div>
+              <img src="slide/digital elec.jpeg" style="width:100%">
+              <div class="text">Electronics</div>
+            </div>
+            
+            </div>
+            <br>
+            
+            <div style="text-align:center">
+              <span class="dot"></span> 
+              <span class="dot"></span> 
+              <span class="dot"></span> 
+            </div>
+
+        <div class="sec_branch"><p>Branches :-</p></div>
+        <div class="responsive">
+            <div class="gallery">
+              <a target="_blank" href="photos/computer.jpg">
+                <img src="photos/computer.jpg" alt="Cinque Terre">
+              </a>
+              <div class="desc">Computer Science and Engineering</div>
+            </div>
+          </div>
+          
+          <div class="responsive">
+            <div class="gallery">
+              <a target="_blank" href="photos/EEE.jpg">
+                <img src="photos/EEE.jpg" alt="Forest">
+              </a>
+              <div class="desc">Electrical and Electronics</div>
+            </div>
+          </div>
+          
+          <div class="responsive">
+            <div class="gallery">
+              <a target="_blank" href="photos/Civil.jpg">
+                <img src="photos/Civil.jpg" alt="Northern Lights">
+              </a>
+              <div class="desc">Civil Engineering</div>
+            </div>
+          </div>
+          
+          <div class="responsive">
+            <div class="gallery">
+              <a target="_blank" href="photos/mech.jpg">
+                <img src="photos/mech.jpg" alt="Mountains">
+              </a>
+              <div class="desc">Mechanical Engineering</div>
+            </div>
+          </div>
+          
+          <div class="clearfix"></div>
+        <!-- <div class="slide_container">
+            <div class="slide_content">
+                <div class="card_wrapper">
+                    <div class="card">
+                        <div class="img_content">
+                            <span class="overlay"></span>
+    
+                            <div class="card_image">
+                                <img src="photos/computer.jpg" alt="" class="card_img">
+                                <img src="photos/EEE.jpg" alt="" class="card_img">
+                                <img src="photos/Civil.jpg" alt="" class="card_img">
+                                <img src="photos/mech.jpg" alt="" class="card_img">
+                            </div>
+                            <div class="sec_branch"><p>New Launched</p></div>
+                            <div class="card_image">
+                                <img src="photos/sql.jpg" alt="" class="card_img">
+                                <img src="photos/digital elec.jpeg" alt="" class="card_img">
+                                <img src="photos/git_hub.jpg" alt="" class="card_img">
+                                <img src="photos/git_hub.jpg" alt="" class="card_img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        </div>
+        
+    
+    <!-- <div class="slide_container">
+        <div class="slide_content">
+            <div class="card_wrapper">
+                <div class="card">
+                    <div class="img_content">
+                        <span class="overlay"></span>
+
+                        <div class="card_image">
+                            <img src="computer.jpg" alt="" class="card_img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <footer>
+        <div class="foot-panel">
+            <ul>
+                <p class="foot">BIT, BARSHI</p>
+                <p>
+                    <i id="fot" class="fa-solid fa-house"></i>
+                    <a id="foot-home" href="https://bitbarshi.edu.in/index.html">HOME</a></p>
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>
+                    <a href="https://www.google.com/maps/place/JSPM's+Bhagwant+Institute+Of+Technology,+Barshi/@18.2636689,75.6934489,17z/data=!3m1!4b1!4m6!3m5!1s0x3bc4555f56165729:0x693d79bac2acdaa2!8m2!3d18.2636689!4d75.6960238!16s%2Fg%2F11c44ybjyd?entry=ttu">Bhagwant Institute of Technology, Barshi<br>
+                    Gate No.1242, Tadsaundane Road, <br>Latur-Kurduwadi Bypass, Barshi.<br>
+                    Pincode :- 413411</a></p>
+                <p> <i class="fa-solid fa-phone"></i>
+                    <a href="tel:9420734956">123-909090</a> </p>
+                <p> <i class="fa-solid fa-envelope"></i>
+                    <a href="mailto:admissions@bitbarshi.edu.in">admissions@bitbarshi.edu.in</a></p>
+            </ul>
+
+            <ul>
+                <p class="foot">Quick Links</p>
+                <p><i class="fa-solid fa-angle-right"></i>
+                    <a href="https://bamua.digitaluniversity.ac/">Dr. BAMU</a></p>
+                <p><i class="fa-solid fa-angle-right"></i>
+                    <a href="https://dbatu.ac.in/">Dr.Batu</a> </p>
+                <p><i class="fa-solid fa-angle-right"></i>
+                    <a href="https://www.aicte-india.org/">AICTE</a> </p>
+                <p><i class="fa-solid fa-angle-right"></i>
+                    <a href="https://www.dte.org.in/">DTE</a> </p>
+                <p><i class="fa-solid fa-angle-right"></i>
+                    <a href="https://smallseotools.com/plagiarism-checker/">Code of Ethics (Plagiarism Check)</a> </p>
+            </ul>
+
+            <ul>
+                <p class="foot">Social Media</p>
+                <p><i class="fa-brands fa-linkedin"></i>
+                   <a href="https://www.linkedin.com/school/bhagwant-institute-of-technology-barshi/">LinkedIn</a></p>
+                <p><i class="fa-brands fa-instagram"></i>
+                   <a href="https://www.instagram.com/jspm_bit_barshi_/">Instagram.com</a> </p>
+                <p><i class="fa-brands fa-facebook"></i>
+                   <a href="https://m.facebook.com/profile.php/?id=100011824980540&name=xhp_nt__fb__action__open_user">Facebook.com</a> </p>
+                <p><i class="fa-brands fa-youtube"></i>
+                   <a href="https://www.youtube.com/watch?v=mo_KXfpBzcs">YouTube.com</a> </p>
+            </ul>
+        </div>
+        <!-- <button id="theme">Theme</button> -->
+    </footer>
+
+    {% endblock %}
