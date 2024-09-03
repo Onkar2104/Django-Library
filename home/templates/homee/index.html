@@ -3,33 +3,40 @@
 
 {% block start %}
 
-
-
-    <div class="container">
-    <header>
-        <div class="navbar">
-            <h1>JSPM's Bhagwant Institute of Technology, Barshi</h1>
-            <div class="sec-navbar"></div>
-        </div>
-
-        <div class="sec-navba">
-             
-            <a class="home" href="https://bitbarshi.edu.in/index.html"><i class="fa-solid fa-house"></i>Home</a> </i>
-            <a class="home" href="BookSec.html">LIBRARY</a>
-            <a class="home" href="https://bitbarshi.edu.in/trust/index.html">ABOUT Us</a>
-            <!-- <p><a id="home" href="Login.html">Login</a></P> -->
-
-                <div class="dropdown">
-                    <button class="dropbtn">Login</button>
-                    <div class="dropdown-content">
-                      <a href="Login.html">Student</a>
-                      <a href="Login.html">Librarian</a>
-                    </div>
-                  </div>
-
-            <P><a class="home" href="Sign-up.html">SignUp</a></P>
-        </div>
-    </header>
+        <nav class="navbar sticky-top navbar-expand-lg t bg-info bg-gradient">
+            <div class="container-fluid bg-info bg-gradient">
+                <a class="navbar-brand" href="#">JSPM's BIT, Barshi</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="https://bitbarshi.edu.in/index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="BookSec.html">Library</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://bitbarshi.edu.in/trust/index.html">About Us</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Login
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="Login.html">Student</a></li>
+                                <li><a class="dropdown-item" href="Login.html">Librarian</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Sign-up.html">SignUp</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    
         <div class="content">
             <p>"Books are, let's face it, better than everything else. If we played Cultural Fantasy Boxing League, and made books go fifteen rounds in the ring against the best that any other art form had to offer, then books would win pretty much every time."</p><p id="nnn"> – Nick Hornby.</p>
         </div>
@@ -49,11 +56,11 @@
         </div>
 
         <div class="img">
-            <img src="photos/jspm.jpg">
+            <img src="static/photos/jspm.jpg">
         </div>
     
     <div class="img2">
-        <img src="photos/footer-img.png">
+        <img src="static/photos/footer-img.png">
     </div>
     <footer>
         <div class="foot-panel">
@@ -94,9 +101,6 @@
         </div>
     </footer>
     <script src="script.js"></script>
-</div>
+
 
 {% endblock %}
-
-</body>
-</html> --> -->
