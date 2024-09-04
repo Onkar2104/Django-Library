@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
 
 # Application definition
 
@@ -38,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'home'
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +126,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = [
-    BASE_DIR, "static"
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR, "static"
+# ]
