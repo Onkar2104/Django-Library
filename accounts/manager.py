@@ -1,6 +1,4 @@
 from django.contrib.auth.base_user import BaseUserManager
-# from home.views import *
-# from django.contrib.auth.models import User
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
