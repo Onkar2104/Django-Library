@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-# from django.contrib.auth import get_user_model
 # from django.contrib.auth.models import User
 from django.contrib import messages
 from django import forms
@@ -39,11 +38,11 @@ def login_page(request):
                 login(request, user)
                 return redirect('/home_page/')
 
-        return render(request, 'homee/login_page.html')
+        return render(request, 'login_page.html')
 
 def logout_page(request):
     logout(request)
-    return redirect('homee/login_page/')   
+    return redirect('/login_page/')   
 
 # def register(request):
 
@@ -129,4 +128,4 @@ def register(request):
         messages.success(request, "Account created successfully!")
         return redirect('/login_page/')
 
-    return render(request, 'homee/register.html')
+    return render(request, 'register.html')
