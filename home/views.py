@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth import get_user_model
+# from django.contrib.auth import get_user_model
+# from django.contrib.auth.models import User
 from django.contrib import messages
 from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth import get_user_model
 # Create your views here.
 
 User = get_user_model()
@@ -90,7 +92,7 @@ def logout_page(request):
 
 
 def register(request):
-    User = get_user_model()
+    # User = get_user_model()
 
     if request.method == "POST":
         first_name = request.POST.get('first_name')
