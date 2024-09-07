@@ -36,13 +36,13 @@ def login_page(request):
                 return redirect('/login/')
             else:
                 login(request, user)
-                return redirect('/home_page/')
+                return redirect('/books/')
 
         return render(request, 'login_page.html')
 
 def logout_page(request):
     logout(request)
-    return redirect('/login_page/')   
+    return redirect('/login/')   
 
 # def register(request):
 
@@ -126,6 +126,6 @@ def register(request):
         )
 
         messages.success(request, "Account created successfully!")
-        return redirect('/login_page/')
+        return redirect('/login/')
 
     return render(request, 'register.html')
