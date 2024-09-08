@@ -1,0 +1,205 @@
+
+  {% extends "base.html" %}
+
+{% block start %}
+  <style>
+    body {
+      /* background-color: #f4f4f9; */
+      background-image: url('https://cdn.pixabay.com/photo/2017/08/07/03/22/books-2599241_1280.jpg');
+    }
+
+    .profile-photo {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    .profile-container {
+      
+      max-width: 900px;
+      margin: 50px auto;
+    }
+
+    .form-control:focus {
+      box-shadow: none;
+      border-color: #BA68C8;
+    }
+
+    .profile-button {
+      background-color: rgb(99, 39, 120);
+      border: none;
+      color: white;
+    }
+
+    .profile-button:hover {
+      background-color: #682773;
+    }
+
+    .branch-section {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar sticky-top navbar-expand-lg t bg-info bg-gradient">
+    <div class="container-fluid bg-info bg-gradient">
+        <a class="navbar-brand" href="#">JSPM's BIT, Barshi</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="https://bitbarshi.edu.in/index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/books/">Library</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://bitbarshi.edu.in/trust/index.html">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Login
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="Login.html">Student</a></li>
+                        <li><a class="dropdown-item" href="Login.html">Librarian</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Sign-up.html">SignUp</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  <div class="container profile-container bg-white p-4 rounded shadow">
+    <div class="row">
+      <!-- Profile Photo Section -->
+      <div class="col-md-3 text-center">
+        <img src="https://via.placeholder.com/150" class="profile-photo" id="profilePhotoPreview" alt="Profile Photo">
+        <input type="file" class="form-control mt-2" id="profilePhoto" accept="image/*" onchange="previewProfilePhoto(event)">
+      </div>
+
+      <!-- User Info Section -->
+      <div class="col-md-9">
+        <h4 class="mb-3">User Profile Settings</h4>
+
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <!-- Full Name -->
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullName" placeholder="First_name Middle_name Surname" name="full_name" required>
+          </div>
+
+          <!-- Email -->
+          <!-- <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+          </div> -->
+
+          <!-- Phone Number -->
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" name="phone" required>
+          </div>
+
+          <!-- Diploma or Degree Selection -->
+          <div class="mb-3">
+            <label class="form-label">Education Type</label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="educationType" id="diploma" value="diploma" onclick="toggleBranches()">
+              <label class="form-check-label" for="diploma">Diploma</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="educationType" id="degree" value="degree" onclick="toggleBranches()">
+              <label class="form-check-label" for="degree">Degree</label>
+            </div>
+          </div>
+
+          <!-- Branch Selection -->
+          <div class="mb-3 branch-section" id="branchSection">
+            <label for="branch" class="form-label">Branch</label>
+            <select class="form-select" id="branch" name="branch" required>
+              <option value="" selected disabled>Select branch</option>
+            </select>
+          </div>
+
+          <!-- Pursuing Year -->
+          <div class="mb-3">
+            <label for="pursuingYear" class="form-label">Pursuing Year</label>
+            <input type="number" class="form-control" id="pursuingYear" min="1" max="4" placeholder="Enter your year (1-4)" name="pursuing_year" required>
+          </div>
+
+          <!-- Books Obtained -->
+          <!-- <div class="mb-3">
+            <label for="booksObtained" class="form-label">Books Obtained</label>
+            <textarea class="form-control" id="booksObtained" rows="3" placeholder="List the books you've obtained"></textarea>
+          </div> -->
+
+          <!-- Change Password -->
+          <!-- <div class="mb-3">
+            <label for="newPassword" class="form-label">Change Password</label>
+            <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+          </div> -->
+
+          <!-- Submit Button -->
+          <div class="text-center">
+            <button type="submit" class="btn profile-button">Update Profile</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Preview the uploaded profile photo
+    function previewProfilePhoto(event) {
+      const reader = new FileReader();
+      reader.onload = function(){
+        const output = document.getElementById('profilePhotoPreview');
+        output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    // Branches for diploma and degree
+    const diplomaBranches = ['ENTC', 'Civil', 'Mechanical'];
+    const degreeBranches = ['Computer', 'ENTC', 'Civil', 'Mechanical'];
+
+    // Toggle branches based on education type
+    function toggleBranches() {
+      const branchSelect = document.getElementById('branch');
+      const diplomaChecked = document.getElementById('diploma').checked;
+      const degreeChecked = document.getElementById('degree').checked;
+      const branchSection = document.getElementById('branchSection');
+
+      // Clear the branch options
+      branchSelect.innerHTML = '<option value="" disabled selected>Select branch</option>';
+
+      let branches = [];
+      if (diplomaChecked) {
+        branches = diplomaBranches;
+      } else if (degreeChecked) {
+        branches = degreeBranches;
+      }
+
+      // Populate the branch options
+      branches.forEach(branch => {
+        const option = document.createElement('option');
+        option.value = branch.toLowerCase();
+        option.text = branch;
+        branchSelect.appendChild(option);
+      });
+
+      // Show branch section
+      branchSection.style.display = 'block';
+    }
+  </script>
+</body>
+
+{% endblock %}
