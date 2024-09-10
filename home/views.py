@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
+from .models import *
 # Create your views here.
 
 User = get_user_model()
@@ -36,59 +37,13 @@ def login_page(request):
                 return redirect('/login/')
             else:
                 login(request, user)
-                return redirect('/home_page/')
+                return redirect('/books/')
 
         return render(request, 'login_page.html')
 
 def logout_page(request):
     logout(request)
-    return redirect('/login_page/')   
-
-# def register(request):
-
-#     if request.method == "POST":
-#         first_name = request.POST.get('first_name')
-#         last_name = request.POST.get('last_name')
-#         email = request.POST.get('email')
-#         password = request.POST.get('password')
-#         confirm_password = request.POST.get('confirm_password')
-
-#         if not email:
-#             messages.error(request, "Email is required.")
-#             return redirect('/register/')
-
-#         if password and confirm_password and password != confirm_password:
-#             raise ValidationError("Passwords do not match.")
-        
-        
-    
-#         user = User.objects.filter(email = email)
-#         try:
-#             validate_password(password)
-#         except ValidationError as e:
-#             messages.info(request, "Use some strong password..!")
-#             return redirect('/register/')
-
-#         if user.exists():
-#             messages.info(request, "Already used Email..!")
-#             return redirect('/register/')
-
-#         user = User.objects.create_user(
-#             first_name = first_name,
-#             last_name = last_name,
-#             email = email,
-#             password=password
-#         )
-
-#         user.set_password(password)
-#         user.save()
-
-#         messages.info(request, "Account created successfully..!")
-
-#         return redirect('/login_page/')
-
-#     return render(request, 'homee/register.html/')
-
+    return redirect('/login/')   
 
 def register(request):
     # User = get_user_model()
@@ -126,6 +81,6 @@ def register(request):
         )
 
         messages.success(request, "Account created successfully!")
-        return redirect('/login_page/')
+        return redirect('/login/')
 
     return render(request, 'register.html')
