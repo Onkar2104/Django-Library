@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block start %}
+<body>
+    <h1>{{ student.full_name }}'s Profile</h1>
+    <img src="{{ student.student_image.url }}" alt="Student Image">
+    <p>Email: {{ student.student_email }}</p>
+    <p>Phone: {{ student.student_phone }}</p>
+    <p>Education Type: {{ student.education_type }}</p>
+    <p>Branch: {{ student.branch }}</p>
+    <p>Pursuing Year: {{ student.pursuing_year }}</p>
+    <p>Books Obtained: {{ student.books_obtained }}</p>
+</body>
+{% endblock %}

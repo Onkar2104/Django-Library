@@ -4,7 +4,7 @@
 {% block start %}
   <style>
     body {
-      /* background-color: #f4f4f9; */
+      
       background-image: url('https://cdn.pixabay.com/photo/2017/08/07/03/22/books-2599241_1280.jpg');
     }
 
@@ -77,38 +77,50 @@
     </div>
 </nav>
   <div class="container profile-container bg-white p-4 rounded shadow">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {% if messages %}
+      {{ message.tags }}
+      <div class="alert alert-primary" role="alert">   
+          {% for message in messages %}
+          {{ message }}
+          {% endfor %}
+      </div>
+       {% endif %}
+
     <div class="row">
-      <!-- Profile Photo Section -->
+    
       <div class="col-md-3 text-center">
         <img src="https://via.placeholder.com/150" class="profile-photo" id="profilePhotoPreview" alt="Profile Photo">
-        <input type="file" class="form-control mt-2" id="profilePhoto" accept="image/*" onchange="previewProfilePhoto(event)">
+        <input type="file" class="form-control mt-2" id="profilePhoto" name="student_image" onchange="previewProfilePhoto(event)">
       </div>
 
-      <!-- User Info Section -->
+     
       <div class="col-md-9">
         <h4 class="mb-3">User Profile Settings</h4>
 
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          <!-- Full Name -->
+       
           <div class="mb-3">
             <label for="fullName" class="form-label">Full Name</label>
             <input type="text" class="form-control" id="fullName" placeholder="First_name Middle_name Surname" name="full_name" required>
           </div>
 
-          <!-- Email -->
-          <!-- <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-          </div> -->
-
-          <!-- Phone Number -->
+         
           <div class="mb-3">
-            <label for="phone" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" name="phone" required>
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email" name="student_email" required>
           </div>
 
-          <!-- Diploma or Degree Selection -->
+      
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" name="student_phone" required>
+          </div>
+
+     
           <div class="mb-3">
             <label class="form-label">Education Type</label><br>
             <div class="form-check form-check-inline">
@@ -121,7 +133,7 @@
             </div>
           </div>
 
-          <!-- Branch Selection -->
+       
           <div class="mb-3 branch-section" id="branchSection">
             <label for="branch" class="form-label">Branch</label>
             <select class="form-select" id="branch" name="branch" required>
@@ -129,17 +141,17 @@
             </select>
           </div>
 
-          <!-- Pursuing Year -->
+      
           <div class="mb-3">
             <label for="pursuingYear" class="form-label">Pursuing Year</label>
             <input type="number" class="form-control" id="pursuingYear" min="1" max="4" placeholder="Enter your year (1-4)" name="pursuing_year" required>
           </div>
 
-          <!-- Books Obtained -->
+         
           <!-- <div class="mb-3">
             <label for="booksObtained" class="form-label">Books Obtained</label>
             <textarea class="form-control" id="booksObtained" rows="3" placeholder="List the books you've obtained"></textarea>
-          </div> -->
+          </div>  -->
 
           <!-- Change Password -->
           <!-- <div class="mb-3">
@@ -147,9 +159,9 @@
             <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
           </div> -->
 
-          <!-- Submit Button -->
+          
           <div class="text-center">
-            <button type="submit" class="btn profile-button">Update Profile</button>
+            <button type="submit" class="btn profile-button">Save</button>
           </div>
         </form>
       </div>
@@ -157,7 +169,7 @@
   </div>
 
   <script>
-    // Preview the uploaded profile photo
+  
     function previewProfilePhoto(event) {
       const reader = new FileReader();
       reader.onload = function(){
@@ -167,18 +179,18 @@
       reader.readAsDataURL(event.target.files[0]);
     }
 
-    // Branches for diploma and degree
+    
     const diplomaBranches = ['ENTC', 'Civil', 'Mechanical'];
     const degreeBranches = ['Computer', 'ENTC', 'Civil', 'Mechanical'];
 
-    // Toggle branches based on education type
+  
     function toggleBranches() {
       const branchSelect = document.getElementById('branch');
       const diplomaChecked = document.getElementById('diploma').checked;
       const degreeChecked = document.getElementById('degree').checked;
       const branchSection = document.getElementById('branchSection');
 
-      // Clear the branch options
+      
       branchSelect.innerHTML = '<option value="" disabled selected>Select branch</option>';
 
       let branches = [];
@@ -188,7 +200,7 @@
         branches = degreeBranches;
       }
 
-      // Populate the branch options
+    
       branches.forEach(branch => {
         const option = document.createElement('option');
         option.value = branch.toLowerCase();
@@ -196,7 +208,7 @@
         branchSelect.appendChild(option);
       });
 
-      // Show branch section
+
       branchSection.style.display = 'block';
     }
   </script>

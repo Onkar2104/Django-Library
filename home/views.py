@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
+from .models import *
 # Create your views here.
 
 User = get_user_model()
@@ -43,40 +44,6 @@ def login_page(request):
 def logout_page(request):
     logout(request)
     return redirect('/login/')   
-
-@login_required(login_url="/login/")
-def profile_view(request):
-    if request.method == "POST":
-        data = request.POST
-        full_name = data.get('full_name')
-        email = data.get('email')
-        phone = data.get('phone')
-        educationType = data.get('educationType')
-        branch = data.get('branch')
-        pursuing_year = data.get('pursuingYear')
-        # books_obtained = data.get('booksObtained')
-
-        try:
-            user = User.objects.get(email=request.user.email)
-            user.full_name = full_name
-            user.phone = phone
-            user.educationType = educationType
-            user.branch = branch
-            user.pursuing_year = pursuing_year
-            # user.books_obtained = books_obtained
-
-            # # Update password if provided
-            # if new_password:
-            #     user.set_password(new_password)
-            
-            user.save()
-            messages.success(request, "Profile updated successfully!")
-            return redirect('profile')
-        
-        except User.DoesNotExist:
-            messages.error(request, "User not found!")
-
-    return render(request, 'homee/profile.html', {'user': request.user})
 
 def register(request):
     # User = get_user_model()
