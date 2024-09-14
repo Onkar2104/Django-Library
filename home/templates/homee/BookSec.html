@@ -9,41 +9,62 @@
     }
 
     .navbar{
-        background-color: #16425b;
+        border: 2px solid #D0CCF0;
     }
 
     .navbar a{
-        color: white;
+        color: #6050BC;
     }
 
     .navbar-toggler{
         border: 2px solid white;
-        background-color: white;
+        background-color: #E7E7F7;
+    }
+
+    .logo{
+        border: 3px solid #E7E7F7;
+    }
+
+    .fa-solid, .fas{
+        color: #6978E6;
     }
 
     .sidebar {
       height:89.6vh;
+      border: 2px solid #D0CCF0;
       margin-top: 29px;
-      background-color: #3a7ca5;
-      color: white;
+      background-color: white;
       min-width: 200px;
       flex-shrink: 0;
     }
     .sidebar a {
-      color: white;
+      color: black;
       text-decoration: none;
       padding: 10px;
       display: block;
       margin-bottom: 10px;
     }
     .sidebar a:hover {
-      background-color: #2f6690;
+      background-color: #F5F5Fb;
       border-radius: 10px;
+      /* border: 1px solid #6F76E0; */
     }
 
-    .offcanvas{
-        background-color: #d9dcd6;
+    .libro{
+        background-color: #F5F5Fb;
+        /* background-color: #E7E7F7; */
+        border: 2px solid #D0CCF0;
+        border-radius: 10px;
     }
+
+    .btn{
+        background-color: #F5F5Fb;
+
+    }
+
+    /* .offcanvas{
+        background-color: #d9dcd6;
+    } */
 
     .dashboard-content {
       flex-grow: 1;
@@ -75,6 +96,10 @@
             object-fit: cover; 
         }
 
+        .bodyy{
+            background-color: #F5F5FB;
+        }
+
     @media (max-width: 768px) {
       .sidebar {
         display: none; /* Hide sidebar on smaller screens */
@@ -84,14 +109,14 @@
       }
     }
 </style>
-  <nav class="navbar fixed-top">
+  <nav class="navbar fixed-top bg-white">
     <div class="container-fluid">
-        <div class="navbar-brand">
+        <div class="navbar-brand logo">
             <img src="{% static 'photos/jspm.jpg' %}" width="50" height="50" class="d-inline-block align-text-top">
         </div>
         <a class="navbar-brand d-block text-center text-md-start" href="#">
-            <span class="d-none d-sm-inline fs-3">JSPM's Bhagwant Institute of Technology, Barshi</span>
-            <span class="d-inline d-sm-none fs-3">JSPM's BIT, Barshi</span>
+            <span class="d-none d-sm-inline fs-2">JSPM's Bhagwant Institute of Technology, Barshi</span>
+            <span class="d-inline d-sm-none">JSPM's BIT, Barshi</span>
           </a>
           
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
@@ -155,26 +180,29 @@
   <div class="d-flex mt-5">
     <!-- Sidebar -->
     <div class="sidebar p-3 sticky-top">
-      <a href="#"><i class="fa-solid fa-earth-americas"></i>  All</a>
-      <a href="#"><i class="fas fa-book"></i>  Books</a>
-      <a href="#"><i class="fas fa-book"></i>  Journal</a>
-      <a href="#"><i class="fa-solid fa-newspaper"></i> News Paper</a>
-      <a href="#"><i class="fa-solid fa-heart"></i>  Favourite</a>
-      <a href="#"><i class="fa-solid fa-cart-shopping"></i>  Cart</a>
-      <a href="#"><i class="fas fa-user-graduate"></i>  Students</a>
-      <a href="#"><i class="fas fa-user"></i> My Profile</a>
-      <div class="mt-auto text-center">
-        <!-- <img src="{% static 'photos/Photo.jpg' %}" alt="User Image" class="img-fluid rounded-circle mb-2" width="60">
-        <p>{{ full_name }} Hello</p> -->
-        <a href="#" class="btn btn-outline-light btn-sm my-5">Logout  <i class="fa-solid fa-right-from-bracket"></i></a>
-      </div>
+        <a class="fw-medium fs-4 libro" href="#"><i class="fa-solid fa-book-open-reader"></i> Libro</a>
+        <hr>
+        <a href="#"><i class="fa-solid fa-earth-americas"></i>  All</a>
+        <a href="#"><i class="fas fa-book"></i>  Books</a>
+        <a href="#"><i class="fas fa-book"></i>  Journal</a>
+        <a href="#"><i class="fa-solid fa-newspaper"></i> News Paper</a>
+        <a href="#"><i class="fa-solid fa-heart"></i>  Favourite</a>
+        <a href="#"><i class="fa-solid fa-cart-shopping"></i>  Cart</a>
+        <a href="#"><i class="fas fa-user-graduate"></i>  Students</a>
+        <a href="#"><i class="fas fa-user"></i> My Profile</a>
+        <div class="mt-auto text-center">
+            <!-- <img src="{% static 'photos/Photo.jpg' %}" alt="User Image" class="img-fluid rounded-circle mb-2" width="60">
+            <p>{{ full_name }} Hello</p> -->
+            <a href="#" class="btn btn-outline-light btn-sm my-5">Logout  <i class="fa-solid fa-right-from-bracket"></i></a>
+        </div>
     </div>
     
-    <div class="card mt-3">
-        <div class="card-body">
-          This is some text within a card body.
+    <div class="container bodyy">
+        <div class="grid mt-5">
+            <div>This is some text within a card body.</div>
+            <div>This is some text within a card body.</div>
         </div>
-      </div>
+    </div>
   </div>
 
 
