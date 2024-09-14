@@ -7,7 +7,13 @@
 
         <nav class="navbar sticky-top navbar-expand-lg t bg-info bg-gradient">
             <div class="container-fluid bg-info bg-gradient">
-                <a class="navbar-brand" href="#">JSPM's BIT, Barshi</a>
+                <div class="navbar-brand">
+                    <img src="static/photos/jspm.jpg" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+                </div>
+                <a class="navbar-brand d-block text-center text-md-start" href="#">
+                    <span class="d-none d-sm-inline fs-3">JSPM's Bhagwant Institute of Technology, Barshi</span>
+                    <span class="d-inline d-sm-none fs-3">JSPM's BIT, Barshi</span>
+                  </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -27,12 +33,12 @@
                                 Login
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="Login.html">Student</a></li>
-                                <li><a class="dropdown-item" href="Login.html">Librarian</a></li>
+                                <li><a class="dropdown-item" href="/login/">Student</a></li>
+                                <li><a class="dropdown-item" href="/admin/">Librarian</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Sign-up.html">SignUp</a>
+                            <a class="nav-link" href="/register/">SignUp</a>
                         </li>
                     </ul>
                 </div>
@@ -51,8 +57,8 @@
         </div> 
         <div class="info">
             <p>
-                <a id="info1" href="library.html">6 Branches</a>
-                <a id="info2" href="library.html">500 Books</a>
+                <a id="info1" href=" /">6 Branches</a>
+                <a id="info2" href=" /">500 Books</a>
             </p>
         </div>
 
@@ -69,18 +75,18 @@
         <div class=" row">
             <!-- Library Stack Room -->
             <div class="container col-md-4">
-                <h2>Library Stack Room</h2>
-                <img src="static/photos/library-stack-room.jpg" alt="Library Stack Room" class="img-fluid border border-5 border-info-subtle shadow-sm"> 
+                <h2 class="text-center">Library Stack Room</h2>
+                <img src="static/photos/library-stack-room.jpg" alt="Library Stack Room" class="img-thumbnail"> 
             </div>
             <!-- Reading Room-I -->
             <div class="col-md-4">
-                <h2>Reading Room-I</h2>
-                <img src="static/photos/reading-room.jpg" alt="Reading Room-I" class="img-fluid border border-5 border-info-subtle shadow-sm">
+                <h2 class="text-center">Reading Room</h2>
+                <img src="static/photos/reading-room.jpg" alt="Reading Room-I" class="img-thumbnail">
             </div>
             <!-- Digital Library -->
             <div class="col-md-4">
-                <h2>Digital Library</h2>
-                <img src="static/photos/digital-library.jpg" alt="Digital Library" class="img-fluid border border-5 border-info-subtle shadow-sm">
+                <h2 class="text-center">Digital Library</h2>
+                <img src="static/photos/digital-library.jpg" alt="Digital Library" class="img-thumbnail">
             </div>
         </div>
     </div>
@@ -129,7 +135,7 @@
             © 2024 JSPM's Bhagwant Institute of Technology, Barshi
         </div>
     </footer>
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
 
 
 {% endblock %}
