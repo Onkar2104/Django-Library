@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-# from django.contrib.auth.models import User
 from django.contrib import messages
-from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
 from .models import *
+from django.core.mail import send_mail, EmailMessage
+
 # Create your views here.
 
 User = get_user_model()
@@ -19,7 +18,18 @@ def home_page(request):
 
 @login_required(login_url="/login/")
 def books(request):
-    return render(request, 'homee/BookSec.html')
+    if request.user.is_authenticated:
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+    else:
+        first_name = "Guest",  # Or some default value
+        last_name = "guest"
+    
+    context = {
+        'first_name': first_name,
+        'last_name': last_name
+    }
+    return render(request, 'homee/BookSec.html', context)
 
 def login_page(request):
         if request.method == "POST":
@@ -80,7 +90,21 @@ def register(request):
             password=password
         )
 
+        subject = "Welcome to BIT Library"
+        message = f"Hello {first_name},\n\nWelcome to BIT Library! We're glad to have you."
+        from_email = settings.EMAIL_HOST_USER
+        recipient_list = [email]  # Make sure recipient_list is a list
+
+        try:
+            send_mail(subject, message, from_email, recipient_list)
+            messages.success(request, "Account created successfully! A welcome email has been sent.")
+        except Exception as e:
+            messages.warning(request, "Account created successfully, but email failed to send.")
+
+
+
         messages.success(request, "Account created successfully!")
         return redirect('/login/')
 
     return render(request, 'register.html')
+

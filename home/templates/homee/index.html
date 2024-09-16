@@ -10,7 +10,7 @@
                 <div class="navbar-brand">
                     <img src="static/photos/jspm.jpg" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
                 </div>
-                <a class="navbar-brand d-block text-center text-md-start" href="#">
+                <a class="navbar-brand d-block text-center text-md-start" href="https://bitbarshi.edu.in/index.html">
                     <span class="d-none d-sm-inline fs-3">JSPM's Bhagwant Institute of Technology, Barshi</span>
                     <span class="d-inline d-sm-none fs-3">JSPM's BIT, Barshi</span>
                   </a>
@@ -20,26 +20,32 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="https://bitbarshi.edu.in/index.html">Home</a>
+                            <a class="nav-link active" aria-current="page" href="https://bitbarshi.edu.in/index.html"><i class="fa-solid fa-house"></i> Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/books/">Library</a>
+                            <a class="nav-link" href="/books/"><i class="fa-solid fa-book"></i> Library</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://bitbarshi.edu.in/trust/index.html">About Us</a>
+                            <a class="nav-link" href="https://bitbarshi.edu.in/trust/index.html"><i class="fa-solid fa-address-card"></i> About Us</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Login
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/login/">Student</a></li>
-                                <li><a class="dropdown-item" href="/admin/">Librarian</a></li>
-                            </ul>
-                        </li>
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout/"><i class="fa-solid fa-right-from-bracket"></i> Logout </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Login
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/login/">Student</a></li>
+                                    <li><a class="dropdown-item" href="/admin/">Librarian</a></li>
+                                </ul>
+                            </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/register/">SignUp</a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -57,8 +63,8 @@
         </div> 
         <div class="info">
             <p>
-                <a id="info1" href=" /">6 Branches</a>
-                <a id="info2" href=" /">500 Books</a>
+                <a id="info1" href=" /books/">6 Branches</a>
+                <a id="info2" href="/books/">500 Books</a>
             </p>
         </div>
 
@@ -75,17 +81,17 @@
         <div class=" row">
             <!-- Library Stack Room -->
             <div class="container col-md-4">
-                <h2 class="text-center">Library Stack Room</h2>
+                <h2 class="text-center"><i class="fa-solid fa-book"></i> Library Stack Room</h2>
                 <img src="static/photos/library-stack-room.jpg" alt="Library Stack Room" class="img-thumbnail"> 
             </div>
             <!-- Reading Room-I -->
             <div class="col-md-4">
-                <h2 class="text-center">Reading Room</h2>
+                <h2 class="text-center"><i class="fa-solid fa-book-open"></i> Reading Room</h2>
                 <img src="static/photos/reading-room.jpg" alt="Reading Room-I" class="img-thumbnail">
             </div>
             <!-- Digital Library -->
             <div class="col-md-4">
-                <h2 class="text-center">Digital Library</h2>
+                <h2 class="text-center"><i class="fa-solid fa-computer"></i> Digital Library</h2>
                 <img src="static/photos/digital-library.jpg" alt="Digital Library" class="img-thumbnail">
             </div>
         </div>
