@@ -26,6 +26,7 @@ urlpatterns = [
     path('books/', books, name="books"),
     path('login/', login_page, name="login_page"),
     path('register/', register, name="register"),
+    path('logout/', logout_page, name="logout"),
 
     path('admin/', admin.site.urls),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
