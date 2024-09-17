@@ -108,3 +108,14 @@ def register(request):
 
     return render(request, 'register.html')
 
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
+
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'password_reset.html'
+    email_template_name = 'password_reset_email.html'
+    subject_template_name = 'password_reset_subject.txt'
+    success_message = "if an account exists with the email you entered. You should receive them shortly." \
+    
+    success_url = reverse_lazy('login_page')
