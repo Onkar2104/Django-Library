@@ -6,7 +6,10 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
 from .models import *
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import send_mail
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
 
 # Create your views here.
 
@@ -22,7 +25,7 @@ def books(request):
         first_name = request.user.first_name
         last_name = request.user.last_name
     else:
-        first_name = "Guest",  # Or some default value
+        first_name = "Guest", 
         last_name = "guest"
     
     context = {
@@ -90,10 +93,11 @@ def register(request):
             password=password
         )
 
-        subject = "Welcome to BIT Library"
-        message = f"Hello {first_name},\n\nWelcome to BIT Library! We're glad to have you."
+        subject = "Welcome to Bit Library! 📚"
+        message = f"Hello {first_name},\n\nWelcome to BIT Library! We're glad to have you.\n\nAbout Bit Library: Bit Library is more than just a collection of books; it’s a gateway to knowledge, inspiration, and connection.\n\nOnline Access: Can’t make it to the physical library? No worries! Our online catalog is accessible 24/7.\n\nHappy reading, {first_name}! 📖\n\nWarm regards,\n\nJSPM's Bit Library."
+        
         from_email = settings.EMAIL_HOST_USER
-        recipient_list = [email]  # Make sure recipient_list is a list
+        recipient_list = [email]
 
         try:
             send_mail(subject, message, from_email, recipient_list)
@@ -108,9 +112,6 @@ def register(request):
 
     return render(request, 'register.html')
 
-from django.urls import reverse_lazy
-from django.contrib.auth.views import PasswordResetView
-from django.contrib.messages.views import SuccessMessageMixin
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'password_reset.html'
