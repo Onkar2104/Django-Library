@@ -1,14 +1,173 @@
 {% extends "base.html" %}
 
 {% block start %}
+  <style>
+    body {
+      
+      background-image: url('https://cdn.pixabay.com/photo/2017/08/07/03/22/books-2599241_1280.jpg');
+    }
+
+    .profile-photo {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    .profile-container {
+      
+      max-width: 900px;
+      margin: 50px auto;
+    }
+
+    .form-control:focus {
+      box-shadow: none;
+      border-color: #BA68C8;
+    }
+
+    .profile-button {
+      background-color: rgb(99, 39, 120);
+      border: none;
+      color: white;
+    }
+
+    .profile-button:hover {
+      background-color: #682773;
+    }
+
+    .branch-section {
+      display: none;
+    }
+  </style>
+</head>
 <body>
-    <h1>{{ student.full_name }}'s Profile</h1>
-    <img src="{{ student.student_image.url }}" alt="Student Image">
-    <p>Email: {{ student.student_email }}</p>
-    <p>Phone: {{ student.student_phone }}</p>
-    <p>Education Type: {{ student.education_type }}</p>
-    <p>Branch: {{ student.branch }}</p>
-    <p>Pursuing Year: {{ student.pursuing_year }}</p>
-    <p>Books Obtained: {{ student.books_obtained }}</p>
+  <nav class="navbar sticky-top navbar-expand-lg t bg-info bg-gradient">
+    <div class="container-fluid bg-info bg-gradient">
+        <a class="navbar-brand" href="#">JSPM's BIT, Barshi</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="https://bitbarshi.edu.in/index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/books/">Library</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://bitbarshi.edu.in/trust/index.html">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Login
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="Login.html">Student</a></li>
+                        <li><a class="dropdown-item" href="Login.html">Librarian</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Sign-up.html">SignUp</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  <div class="container profile-container bg-white p-4 rounded shadow">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="row">
+          <div class="col-md-3 text-center">
+            {% if form.instance.student_image %}
+              <img src="{{ form.instance.student_image.url }}" class="profile-photo" id="profilePhotoPreview" alt="Profile Photo">
+            {% else %}
+              <img src="https://via.placeholder.com/150" class="profile-photo" id="profilePhotoPreview" alt="Profile Photo">
+            {% endif %}
+            <input type="file" class="form-control mt-2" id="profilePhoto" name="student_image" onchange="previewProfilePhoto(event)">
+          </div>
+      
+          <div class="col-md-9">
+            <h4 class="mb-3">User Profile Settings</h4>
+      
+            <!-- Full Name -->
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="fullName" name="full_name" value="{{ form.instance.full_name }}" required readonly>
+            </div>
+      
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" value="{{ request.user.email }}" readonly>
+            </div>
+      
+            <!-- Phone Number -->
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="phone" name="phone" value="{{ form.instance.phone }}" required>
+            </div>
+      
+            <!-- Education Type -->
+            <div class="mb-3">
+              <label class="form-label">Education Type</label><br>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="education_type" id="diploma" value="Diploma" {% if form.instance.education_type == "Diploma" %}checked{% endif %} disabled>
+                <label class="form-check-label" for="diploma">Diploma</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="education_type" id="degree" value="Degree" {% if form.instance.education_type == "Degree" %}checked{% endif %} disabled>
+                <label class="form-check-label" for="degree">Degree</label>
+              </div>
+            </div>
+      
+            <!-- Branch -->
+            <div class="mb-3 branch-section" id="branchSection">
+              <label for="branch" class="form-label">Branch</label>
+              <select class="form-select" id="branch" name="select_branch" disabled>
+                <option value="" disabled>Select branch</option>
+                <option value="computer" {% if form.instance.select_branch == "computer" %}selected{% endif %}>Computer</option>
+                <option value="entc" {% if form.instance.select_branch == "entc" %}selected{% endif %}>ENTC</option>
+                <option value="civil" {% if form.instance.select_branch == "civil" %}selected{% endif %}>Civil</option>
+                <option value="mechanical" {% if form.instance.select_branch == "mechanical" %}selected{% endif %}>Mechanical</option>
+              </select>
+            </div>
+      
+            <!-- Pursuing Year -->
+            <div class="mb-3">
+              <label for="pursuingYear" class="form-label">Pursuing Year</label>
+              <input type="number" class="form-control" id="pursuingYear" name="pursuing_year" min="1" max="4" value="{{ form.instance.pursuing_year }}" readonly>
+            </div>
+      
+            <!-- Books Obtained -->
+            <div class="mb-3">
+              <label for="booksObtained" class="form-label">Books Obtained</label>
+              <textarea class="form-control" id="booksObtained" name="books_obtained" rows="3">{{ form.instance.books_obtained }}</textarea>
+            </div>
+      
+            <!-- Save Button -->
+            <div class="text-center">
+              <button type="submit" class="btn profile-button">Save</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      
+  </div>
+
+  <script>
+    // Preview profile photo before uploading
+    function previewProfilePhoto(event) {
+      const reader = new FileReader();
+      reader.onload = function(){
+        const output = document.getElementById('profilePhotoPreview');
+        output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  </script>
 </body>
+
 {% endblock %}

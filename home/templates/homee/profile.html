@@ -1,5 +1,4 @@
-
-  {% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block start %}
   <style>
@@ -111,24 +110,25 @@
          
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter your email" name="student_email" required>
-          </div>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email" value="{{ email }}" readonly>
+        </div>
+        
 
       
           <div class="mb-3">
             <label for="phone" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" name="student_phone" required>
+            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" name="phone" required>
           </div>
 
      
           <div class="mb-3">
             <label class="form-label">Education Type</label><br>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="educationType" id="diploma" value="diploma" onclick="toggleBranches()">
+              <input class="form-check-input" type="radio" name="education_type" id="diploma" value="diploma" onclick="toggleBranches()">
               <label class="form-check-label" for="diploma">Diploma</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="educationType" id="degree" value="degree" onclick="toggleBranches()">
+              <input class="form-check-input" type="radio" name="education_type" id="degree" value="degree" onclick="toggleBranches()">
               <label class="form-check-label" for="degree">Degree</label>
             </div>
           </div>
@@ -136,7 +136,7 @@
        
           <div class="mb-3 branch-section" id="branchSection">
             <label for="branch" class="form-label">Branch</label>
-            <select class="form-select" id="branch" name="branch" required>
+            <select class="form-select" id="branch" name="select_branch" required>
               <option value="" selected disabled>Select branch</option>
             </select>
           </div>
@@ -148,15 +148,15 @@
           </div>
 
          
-          <!-- <div class="mb-3">
+          <div class="mb-3">
             <label for="booksObtained" class="form-label">Books Obtained</label>
-            <textarea class="form-control" id="booksObtained" rows="3" placeholder="List the books you've obtained"></textarea>
-          </div>  -->
+            <textarea class="form-control" id="booksObtained" rows="3" placeholder="List the books you've obtained" name="books_obtained"></textarea>
+          </div> 
 
           <!-- Change Password -->
           <!-- <div class="mb-3">
             <label for="newPassword" class="form-label">Change Password</label>
-            <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+            <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" name="change_password">
           </div> -->
 
           

@@ -10,6 +10,7 @@ from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
+from .models import StudentProfile
 
 # Create your views here.
 
@@ -111,6 +112,84 @@ def register(request):
         return redirect('/login/')
 
     return render(request, 'register.html')
+
+
+
+
+@login_required(login_url="/login/")
+def student_info(request):
+    # Get the logged-in user
+    user = request.user
+
+    # Fetch existing student profile or create a new one
+    student_profile, created = StudentProfile.objects.get_or_create(user=user)
+
+    if request.method == "POST":
+        # Get the form data
+        full_name = request.POST.get('full_name')
+        student_image = request.FILES.get('student_image')
+        phone = request.POST.get('phone')
+        education_type = request.POST.get('education_type')
+        select_branch = request.POST.get('select_branch')
+        pursuing_year = request.POST.get('pursuing_year')
+        books_obtained = request.POST.get('books_obtained')
+
+        # Assign the form data to the student profile
+        student_profile.full_name = full_name
+        if student_image:
+            student_profile.student_image = student_image  # Save only if a new image is uploaded
+        student_profile.phone = phone
+        student_profile.education_type = education_type
+        student_profile.select_branch = select_branch
+        student_profile.pursuing_year = pursuing_year
+        student_profile.books_obtained = books_obtained
+
+        # Save the student profile
+        student_profile.save()
+
+        messages.success(request, 'Profile updated successfully!')
+        return redirect('/profile/')  # Redirect to avoid re-submission of the form
+
+    context = {
+        'full_name': student_profile.full_name,
+        'email': user.email,  # Get email from the user model
+        'phone': student_profile.phone,
+        'education_type': student_profile.education_type,
+        'select_branch': student_profile.select_branch,
+        'pursuing_year': student_profile.pursuing_year,
+        'books_obtained': student_profile.books_obtained,
+        'student_image': student_profile.student_image.url if student_profile.student_image else None,
+    }
+    
+
+    return render(request, 'homee/profile.html', context)
+
+
+@login_required(login_url="/login/")
+def my_profile(request):
+
+#     if request.user.is_authenticated:
+#         full_name = request.student_profile.full_name
+#         phone = request.student_profile.phone
+#         student_image = request.student_profile.student_image
+#         education_type = request.student_profile.education_type
+#         select_branch = request.student_profile.select_branch
+#         pursuing_year = request.student_profile.pursuing_year
+#         books_obtained = request.student_profile.books_obtained
+
+    
+#     context = {
+#         'full_name': full_name,
+#         'phone': phone,
+#         'student_image':student_image,
+#         'education_type':education_type,
+#         'select_branch' : select_branch,
+#         'pursuing_year': pursuing_year,
+#         'books_obtained': books_obtained
+#     }
+     return render(request, 'homee/myProfile.html')
+
+
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
