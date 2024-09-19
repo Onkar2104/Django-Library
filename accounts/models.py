@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.contrib.auth.models import UserManager
 from django.utils import timezone 
+from django.conf import settings
 
 # Create your models here.
 
@@ -53,3 +54,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.first_name or self.email.split('@')[0]
 
 
+# class StudentInfo(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    
+#     full_name = models.CharField(max_length=35, blank=True, default='')
+#     img = models.ImageField(upload_to='student_info/', blank=True, null=True)  # Removed default=None
+#     email = models.EmailField(unique=True)
+#     phone = models.CharField(max_length=12)
+    
+#     EDUCATION_CHOICES = [
+#         ('Diploma', 'Diploma'),
+#         ('Degree', 'Degree'),
+#     ]
+    
+#     education_type = models.CharField(
+#         max_length=10,
+#         choices=EDUCATION_CHOICES,
+#         default='Diploma',
+#     )
+
+#     def __str__(self):
+#         return self.email
