@@ -118,14 +118,11 @@ def register(request):
 
 @login_required(login_url="/login/")
 def student_info(request):
-    # Get the logged-in user
     user = request.user
 
-    # Fetch existing student profile or create a new one
     student_profile, created = StudentProfile.objects.get_or_create(user=user)
 
     if request.method == "POST":
-        # Get the form data
         full_name = request.POST.get('full_name')
         student_image = request.FILES.get('student_image')
         phone = request.POST.get('phone')
@@ -134,25 +131,23 @@ def student_info(request):
         pursuing_year = request.POST.get('pursuing_year')
         books_obtained = request.POST.get('books_obtained')
 
-        # Assign the form data to the student profile
         student_profile.full_name = full_name
         if student_image:
-            student_profile.student_image = student_image  # Save only if a new image is uploaded
+            student_profile.student_image = student_image
         student_profile.phone = phone
         student_profile.education_type = education_type
         student_profile.select_branch = select_branch
         student_profile.pursuing_year = pursuing_year
         student_profile.books_obtained = books_obtained
 
-        # Save the student profile
         student_profile.save()
 
         messages.success(request, 'Profile updated successfully!')
-        return redirect('/profile/')  # Redirect to avoid re-submission of the form
+        return redirect('/profile/') 
 
     context = {
         'full_name': student_profile.full_name,
-        'email': user.email,  # Get email from the user model
+        'email': user.email,  
         'phone': student_profile.phone,
         'education_type': student_profile.education_type,
         'select_branch': student_profile.select_branch,
