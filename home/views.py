@@ -114,8 +114,6 @@ def register(request):
     return render(request, 'register.html')
 
 
-
-
 @login_required(login_url="/login/")
 def student_info(request):
     user = request.user
@@ -132,8 +130,7 @@ def student_info(request):
         books_obtained = request.POST.get('books_obtained')
 
         student_profile.full_name = full_name
-        if student_image:
-            student_profile.student_image = student_image
+        student_profile.student_image = student_image
         student_profile.phone = phone
         student_profile.education_type = education_type
         student_profile.select_branch = select_branch

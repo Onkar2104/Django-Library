@@ -89,6 +89,8 @@
        {% endif %}
 
     <div class="row">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
     
       <div class="col-md-3 text-center">
         <img src="https://via.placeholder.com/150" class="profile-photo" id="profilePhotoPreview" alt="Profile Photo">
@@ -99,8 +101,7 @@
       <div class="col-md-9">
         <h4 class="mb-3">User Profile Settings</h4>
 
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
+
        
           <div class="mb-3">
             <label for="fullName" class="form-label">Full Name</label>
