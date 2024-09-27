@@ -10,7 +10,7 @@ class StudentProfile(models.Model):
     full_name = models.CharField(max_length=35, blank=True, default='')
     student_image = models.ImageField(upload_to='student_info/', default=None)
     phone = models.CharField(max_length=12)
-    education_type = models.CharField(max_length=10, choices=[('Diploma', 'Diploma'), ('Degree', 'Degree')])
+    education_type = models.CharField(max_length=10)
     select_branch = models.CharField(max_length=30, blank=True)
     pursuing_year = models.IntegerField(null=False, blank=False, default='1')
     books_obtained = models.TextField(blank=True, default='')
