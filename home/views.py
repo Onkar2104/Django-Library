@@ -22,16 +22,32 @@ def home_page(request):
 
 @login_required(login_url="/login/")
 def books(request):
-    profile = StudentProfile.objects.get(user=request.user) 
+    if request.user.is_authenticated:
+        user = request.user
+        first_name = user.first_name
+        last_name = user.last_name
 
-    full_name = profile.full_name
-    student_image = profile.student_image
-    
+        try:
+            profile = StudentProfile.objects.get(user=user)
+            full_name = profile.full_name
+            student_image = profile.student_image
+        except StudentProfile.DoesNotExist:
+            full_name = f"{first_name} {last_name}"
+            student_image = None
+    else:
+        first_name = "Guest"
+        last_name = "guest"
+        full_name = "Guest User"
+        student_image = None
+
     context = {
+        'first_name': first_name,
         'full_name': full_name,
         'student_image': student_image
     }
+
     return render(request, 'homee/BookSec.html', context)
+
 
 def login_page(request):
         if request.method == "POST":
@@ -117,27 +133,30 @@ def register(request):
 @login_required(login_url="/login/")
 def student_info(request):
     user = request.user
-    # Retrieve the student's profile or create a new one
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+
     profile, created = StudentProfile.objects.get_or_create(user=user)
 
     if request.method == "POST":
-        # Update the profile with POST data
         profile.full_name = request.POST.get('full_name')
         profile.student_image = request.FILES.get('student_image') if request.FILES.get('student_image') else profile.student_image
         profile.phone = request.POST.get('phone')
         profile.education_type = request.POST.get('education_type')
         profile.select_branch = request.POST.get('select_branch')
-        profile.pursuing_year = request.POST.get('pursuing_year')
+        pursuing_year = request.POST.get('pursuing_year')
+        if pursuing_year:
+            profile.pursuing_year = int(pursuing_year)
         profile.books_obtained = request.POST.get('books_obtained')
         
-        # Save the updated profile
         profile.save()
 
         messages.success(request, 'Profile updated successfully!')
         return redirect('/profile/')
     
-    # For GET requests, load the existing data from the profile
     context = {
+        'first_name': first_name,
+        'last_name': last_name,
         'full_name': profile.full_name,
         'email': user.email,
         'phone': profile.phone,
@@ -153,9 +172,44 @@ def student_info(request):
 
 @login_required(login_url="/login/")
 def my_profile(request):
-     return render(request, 'homee/myProfile.html')
+    try:
+        profile = StudentProfile.objects.get(user=request.user)
 
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        email = request.user.email
+        full_name = profile.full_name
+        phone = profile.phone
+        education_type = profile.education_type
+        branch = profile.select_branch
+        pursuing_year = profile.pursuing_year
+        student_image = profile.student_image
 
+    except StudentProfile.DoesNotExist:
+        profile = None
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        email = request.user.email
+        full_name = ""
+        phone = ""
+        education_type = ""
+        branch = ""
+        pursuing_year = ""
+        student_image = None
+
+    context = {
+        'first_name': first_name,
+        'last_name': last_name,
+        'email': email,
+        'full_name': full_name,
+        'phone': phone,
+        'education_type': education_type,
+        'select_branch': branch,
+        'pursuing_year': pursuing_year,
+        'student_image': student_image
+    }
+
+    return render(request, 'homee/myProfile.html', context)
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
