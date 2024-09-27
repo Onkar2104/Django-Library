@@ -52,26 +52,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.first_name or self.email.split('@')[0]
-
-
-# class StudentInfo(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    
-#     full_name = models.CharField(max_length=35, blank=True, default='')
-#     img = models.ImageField(upload_to='student_info/', blank=True, null=True)  # Removed default=None
-#     email = models.EmailField(unique=True)
-#     phone = models.CharField(max_length=12)
-    
-#     EDUCATION_CHOICES = [
-#         ('Diploma', 'Diploma'),
-#         ('Degree', 'Degree'),
-#     ]
-    
-#     education_type = models.CharField(
-#         max_length=10,
-#         choices=EDUCATION_CHOICES,
-#         default='Diploma',
-#     )
-
-#     def __str__(self):
-#         return self.email
