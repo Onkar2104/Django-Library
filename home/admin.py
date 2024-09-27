@@ -6,5 +6,6 @@ from accounts.models import *
 class ExistingAdminClass(admin.ModelAdmin):
     search_fields = ['full_name', 'phone', 'select_branch', 'education_type', 'books_obtained']
     list_filter = ('pursuing_year', 'education_type', 'select_branch')
+    ordering = ('full_name',)
 
 admin.site.register(StudentProfile, ExistingAdminClass)
