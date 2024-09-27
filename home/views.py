@@ -128,8 +128,6 @@ def register(request):
     return render(request, 'register.html')
 
 
-
-
 @login_required(login_url="/login/")
 def student_info(request):
     user = request.user
@@ -145,11 +143,25 @@ def student_info(request):
         profile.education_type = request.POST.get('education_type')
         profile.select_branch = request.POST.get('select_branch')
         pursuing_year = request.POST.get('pursuing_year')
+<<<<<<< HEAD
         if pursuing_year:
             profile.pursuing_year = int(pursuing_year)
         profile.books_obtained = request.POST.get('books_obtained')
         
         profile.save()
+=======
+        books_obtained = request.POST.get('books_obtained')
+
+        student_profile.full_name = full_name
+        student_profile.student_image = student_image
+        student_profile.phone = phone
+        student_profile.education_type = education_type
+        student_profile.select_branch = select_branch
+        student_profile.pursuing_year = pursuing_year
+        student_profile.books_obtained = books_obtained
+
+        student_profile.save()
+>>>>>>> main
 
         messages.success(request, 'Profile updated successfully!')
         return redirect('/profile/')

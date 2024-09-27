@@ -194,19 +194,32 @@
         </div>
         <hr>
 
-
+      <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for student in student_info %}
         <div class="container d-flex justify-content-center ">
+<<<<<<< HEAD
 
             <div class="profile-photo-container">
                 <img src="/media/{{ student_image}}" alt="Profile Photo" class="profile-photo">
             </div>
         </div>
         <p class="text-center fs-3">{{ full_name }} 
+=======
+          {% if student.student_image %}
+          <img src="/media/student_info/{{ student.student_image.url }}" alt="Profile Photo" class="student_image">
+      {% else %}
+          <img src="/media/user.jpg" alt="Default Profile Photo" class="student_image"> <!-- A default image -->
+      {% endif %}
+        </div>
+        {% endfor %}
+        <p class="text-center fs-3">{{ first_name }} {{ last_name }} 
+>>>>>>> main
           <a href="/logout/" class="btn btn-outline-light btn-sm log">
               <i class="fa-solid fa-right-from-bracket"></i>
           </a>
       </p>
-      
+      </form> 
         
 
         <div class="offcanvas-body">
@@ -358,6 +371,10 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
+    var canvas = document.getElementById('myCanvas');
+    if (canvas) {
+    var context = canvas.getContext('2d');
+}
 
     const ctx = document.getElementById('booksChart').getContext('2d');
     const booksChart = new Chart(ctx, {
