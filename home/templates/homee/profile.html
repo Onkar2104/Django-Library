@@ -1,25 +1,62 @@
 {% extends "base.html" %}
 
 {% block start %}
+
   <style>
     body {
       
       background-image: url('https://cdn.pixabay.com/photo/2017/08/07/03/22/books-2599241_1280.jpg');
     }
 
-    .profile-photo {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 20px;
+    @media (max-width: 768px) {
+      body {
+        background-image: none; /* Remove the background image on mobile */
+      }
     }
 
-    .profile-container {
-      
-      max-width: 900px;
-      margin: 50px auto;
-    }
+  .profile-photo {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border: 4px solid #fff; 
+}
+
+.profile-container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f8f9fa; 
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+#profilePhoto {
+  margin-top: 10px;
+}
+
+.profile-photo:hover{
+  cursor: pointer;
+}
+
+.form-control {
+  border-radius: 6px;
+}
+
+.profile-button {
+  background-color: #633978;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.profile-button:hover {
+  background-color: #682773;
+}
+
 
     .form-control:focus {
       box-shadow: none;
@@ -44,33 +81,45 @@
 <body>
   <nav class="navbar sticky-top navbar-expand-lg t bg-info bg-gradient">
     <div class="container-fluid bg-info bg-gradient">
-        <a class="navbar-brand" href="#">JSPM's BIT, Barshi</a>
+        <div class="navbar-brand">
+            <img src="/static/photos/jspm.jpg" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+        </div>
+        <a class="navbar-brand d-block text-center text-md-start" href="https://bitbarshi.edu.in/index.html">
+            <span class="d-none d-sm-inline fs-3">JSPM's Bhagwant Institute of Technology, Barshi</span>
+            <span class="d-inline d-sm-none fs-3">JSPM's BIT, Barshi</span>
+          </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="https://bitbarshi.edu.in/index.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href=" /"><i class="fa-solid fa-house"></i> Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/books/">Library</a>
+                    <a class="nav-link" href="/books/"><i class="fa-solid fa-book"></i> Library</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://bitbarshi.edu.in/trust/index.html">About Us</a>
+                    <a class="nav-link" href="https://bitbarshi.edu.in/trust/index.html"><i class="fa-solid fa-address-card"></i> About Us</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Login
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="Login.html">Student</a></li>
-                        <li><a class="dropdown-item" href="Login.html">Librarian</a></li>
-                    </ul>
-                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout/"><i class="fa-solid fa-right-from-bracket"></i> Logout </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Login
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/login/">Student</a></li>
+                            <li><a class="dropdown-item" href="/admin/">Librarian</a></li>
+                        </ul>
+                    </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Sign-up.html">SignUp</a>
+                    <a class="nav-link" href="/register/">SignUp</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -93,35 +142,37 @@
         {% csrf_token %}
     
       <div class="col-md-3 text-center">
-        <img src="https://via.placeholder.com/150" class="profile-photo" id="profilePhotoPreview" alt="Profile Photo">
-        <input type="file" class="form-control mt-2" id="profilePhoto" name="student_image" onchange="previewProfilePhoto(event)">
+        <div class="d-flex flex-column align-items-center">
+          <img src="{{ student_image }}" class="profile-photo" id="profilePhotoPreview" alt="Profile Photo">
+          
+          <label for="profilePhoto" class="form-label mt-2">Change Profile Photo</label>
+          <input type="file" class="form-control" id="profilePhoto" name="student_image" onchange="previewProfilePhoto(event)">
+        </div>
       </div>
-
-     
+      
       <div class="col-md-9">
-        <h4 class="mb-3">User Profile Settings</h4>
+        <h4 class="mb-3">{{ first_name }} {{last_name}}</h4>
 
+<<<<<<< HEAD
+=======
 
        
+>>>>>>> main
           <div class="mb-3">
             <label for="fullName" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="fullName" placeholder="First_name Middle_name Surname" name="full_name" required>
+            <input type="text" class="form-control" id="fullName" placeholder="First_name Middle_name Surname" name="full_name" value="{{ full_name }}" required>
           </div>
 
-         
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email" value="{{ email }}" readonly>
         </div>
-        
-
       
           <div class="mb-3">
             <label for="phone" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" name="phone" required>
+            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" value="{{phone}}" name="phone" required>
           </div>
 
-     
           <div class="mb-3">
             <label class="form-label">Education Type</label><br>
             <div class="form-check form-check-inline">
@@ -134,7 +185,6 @@
             </div>
           </div>
 
-       
           <div class="mb-3 branch-section" id="branchSection">
             <label for="branch" class="form-label">Branch</label>
             <select class="form-select" id="branch" name="select_branch" required>
@@ -142,27 +192,15 @@
             </select>
           </div>
 
-      
           <div class="mb-3">
             <label for="pursuingYear" class="form-label">Pursuing Year</label>
-            <input type="number" class="form-control" id="pursuingYear" min="1" max="4" placeholder="Enter your year (1-4)" name="pursuing_year" required>
+            <input type="number" class="form-control" id="pursuingYear" min="1" max="4" name="pursuing_year" 
+            value="{{ profile.pursuing_year }}" required>
           </div>
-
-         
-          <div class="mb-3">
-            <label for="booksObtained" class="form-label">Books Obtained</label>
-            <textarea class="form-control" id="booksObtained" rows="3" placeholder="List the books you've obtained" name="books_obtained"></textarea>
-          </div> 
-
-          <!-- Change Password -->
-          <!-- <div class="mb-3">
-            <label for="newPassword" class="form-label">Change Password</label>
-            <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" name="change_password">
-          </div> -->
-
           
           <div class="text-center">
-            <button type="submit" class="btn profile-button">Save</button>
+            <a href="/myprofile/" class="btn btn-light">Back</a>
+            <a href="/myprofile/" class="btn btn-primary">Update</a>
           </div>
         </form>
       </div>
@@ -180,11 +218,10 @@
       reader.readAsDataURL(event.target.files[0]);
     }
 
-    
     const diplomaBranches = ['ENTC', 'Civil', 'Mechanical'];
     const degreeBranches = ['Computer', 'ENTC', 'Civil', 'Mechanical'];
 
-  
+
     function toggleBranches() {
       const branchSelect = document.getElementById('branch');
       const diplomaChecked = document.getElementById('diploma').checked;

@@ -67,9 +67,6 @@
 
     }
 
-    /* .offcanvas{
-        background-color: #d9dcd6;
-    } */
 
     .dashboard-content {
       flex-grow: 1;
@@ -83,18 +80,17 @@
     }
 
     .profile-photo-container {
-            width: 100px;          /* Set the size of the container */
+            width: 100px;        
             height: 100px;
-            border-radius: 50%;     /* Make it circular */
-            overflow: hidden;       /* Ensure the image doesn't overflow */
-            border: 3px solid #343a40; /* Optional border around the profile photo */
-            display: flex;          /* Centering the image */
+            border-radius: 50%;   
+            overflow: hidden;     
+            border: 3px solid #343a40; 
+            display: flex;        
             justify-content: center;
             align-items: center;
-            background-color: #f0f0f0;  /* Light background color */
+            background-color: #f0f0f0; 
         }
 
-        /* Profile Image (Fitable inside the container) */
         .profile-photo {
             width: 100%;
             height: 100%;
@@ -109,16 +105,6 @@
           font-size: 20px;
             color: #888;
         }
-
-        /* .dt{
-          margin-top: 200px;
-          padding: 200px;
-        } */
-        
-        /* .datee, .timee{
-          font-size: 20px;
-          margin-top: 0px;
-        } */
         
         .greeting {
             font-size: 24px;
@@ -129,7 +115,7 @@
 
     @media (max-width: 768px) {
       .sidebar {
-        display: none; /* Hide sidebar on smaller screens */
+        display: none;
       }
       .dashboard-content {
         margin-left: 0; 
@@ -142,12 +128,10 @@
   function displayDateAndGreeting() {
             const now = new Date();
 
-            // Format date as "Mon, Feb 4"
             const dateOptions = { weekday: 'short', month: 'short', day: 'numeric' };
             const dateString = now.toLocaleDateString(undefined, dateOptions);
             document.getElementById("date").innerHTML = dateString;
 
-            // Get current hour and determine the greeting
             const hour = now.getHours();
             let greeting;
 
@@ -214,6 +198,14 @@
       {% csrf_token %}
       {% for student in student_info %}
         <div class="container d-flex justify-content-center ">
+<<<<<<< HEAD
+
+            <div class="profile-photo-container">
+                <img src="/media/{{ student_image}}" alt="Profile Photo" class="profile-photo">
+            </div>
+        </div>
+        <p class="text-center fs-3">{{ full_name }} 
+=======
           {% if student.student_image %}
           <img src="/media/student_info/{{ student.student_image.url }}" alt="Profile Photo" class="student_image">
       {% else %}
@@ -222,6 +214,7 @@
         </div>
         {% endfor %}
         <p class="text-center fs-3">{{ first_name }} {{ last_name }} 
+>>>>>>> main
           <a href="/logout/" class="btn btn-outline-light btn-sm log">
               <i class="fa-solid fa-right-from-bracket"></i>
           </a>
@@ -239,7 +232,7 @@
             </li>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#"><i class="fas fa-user"></i>  My Profile</a>
+                <a class="nav-link active" href="/myprofile/"><i class="fas fa-user"></i>  My Profile</a>
             </li>
           </ul>
           <hr>
@@ -285,11 +278,6 @@
         <div class="mt-auto text-center">
             <a href="/logout/" class="btn btn-outline-light btn-sm my-5 log">Logout  <i class="fa-solid fa-right-from-bracket"></i></a>
         </div>
-
-        <!-- <div class="card card-custom shadow-sm p-3 ">
-            <div class="datee" id="datee"></div>
-            <div class="timee" id="timee"></div>
-        </div> -->
     </div>
     
     
