@@ -6,7 +6,7 @@ User = get_user_model()
 # Create your models here.
 
 class StudentProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=35, blank=True, default='')
     student_image = models.ImageField(upload_to='student_info/', default=None)
     phone = models.CharField(max_length=12)

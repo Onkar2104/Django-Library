@@ -214,10 +214,11 @@
         <div class="container d-flex justify-content-center ">
 
             <div class="profile-photo-container">
-                <img src="{% static 'photos/Photo.jpg' %}" alt="Profile Photo" class="profile-photo">
+                <!-- <img src="{% static 'photos/Photo.jpg' %}" alt="Profile Photo" class="profile-photo"> -->
+                <img src="/media/{{ student_image}}" />
             </div>
         </div>
-        <p class="text-center fs-3">{{ first_name }} {{ last_name }} 
+        <p class="text-center fs-3">{{ full_name }} 
           <a href="/logout/" class="btn btn-outline-light btn-sm log">
               <i class="fa-solid fa-right-from-bracket"></i>
           </a>
