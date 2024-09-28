@@ -16,4 +16,7 @@ class Migration(migrations.Migration):
             field=models.CharField(max_length=10),
         ),
     ]
+<<<<<<< HEAD
 
+=======
+>>>>>>> 98d37efb9be47e16adf9aed41527384eac7a96fb
