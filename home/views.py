@@ -162,7 +162,7 @@ def student_info(request):
         'select_branch': profile.select_branch,
         'pursuing_year': profile.pursuing_year,
         'books_obtained': profile.books_obtained,
-        'student_image': profile.student_image.url if profile.student_image else None,
+        'student_image': profile.student_image,
     }
 
     return render(request, 'homee/profile.html', context)

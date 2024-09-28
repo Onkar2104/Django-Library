@@ -196,7 +196,6 @@
 
       <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      {% for student in student_info %}
         <div class="container d-flex justify-content-center ">
 
             <div class="profile-photo-container">
@@ -378,4 +377,4 @@
     });
 
   </script>
-    {% endblock %}
+{% endblock %}

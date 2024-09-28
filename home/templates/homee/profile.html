@@ -138,12 +138,10 @@
        {% endif %}
 
     <div class="row">
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
     
       <div class="col-md-3 text-center">
         <div class="d-flex flex-column align-items-center">
-          <img src="{{ student_image }}" class="profile-photo" id="profilePhotoPreview" alt="Profile Photo">
+          <img src="/media/{{ student_image }}" class="profile-photo" id="profilePhotoPreview" alt="Profile Photo">
           
           <label for="profilePhoto" class="form-label mt-2">Change Profile Photo</label>
           <input type="file" class="form-control" id="profilePhoto" name="student_image" onchange="previewProfilePhoto(event)">
@@ -155,7 +153,7 @@
 
           <div class="mb-3">
             <label for="fullName" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="fullName" placeholder="First_name Middle_name Surname" name="full_name" value="{{ full_name }}" required>
+            <input type="text" class="form-control" id="fullName" placeholder="First_name Middle_name Surname" name="full_name" required>
           </div>
 
           <div class="mb-3">
@@ -165,7 +163,7 @@
       
           <div class="mb-3">
             <label for="phone" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" value="{{phone}}" name="phone" required>
+            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" name="phone" required>
           </div>
 
           <div class="mb-3">
@@ -189,8 +187,7 @@
 
           <div class="mb-3">
             <label for="pursuingYear" class="form-label">Pursuing Year</label>
-            <input type="number" class="form-control" id="pursuingYear" min="1" max="4" name="pursuing_year" 
-            value="{{ profile.pursuing_year }}" required>
+            <input type="number" class="form-control" id="pursuingYear" min="1" max="4" name="pursuing_year" required>
           </div>
           
           <div class="text-center">
