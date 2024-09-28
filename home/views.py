@@ -23,17 +23,31 @@ def home_page(request):
 @login_required(login_url="/login/")
 def books(request):
     if request.user.is_authenticated:
-        first_name = request.user.first_name
-        last_name = request.user.last_name
+        user = request.user
+        first_name = user.first_name
+        last_name = user.last_name
+
+        try:
+            profile = StudentProfile.objects.get(user=user)
+            full_name = profile.full_name
+            student_image = profile.student_image
+        except StudentProfile.DoesNotExist:
+            full_name = f"{first_name} {last_name}"
+            student_image = None
     else:
-        first_name = "Guest", 
+        first_name = "Guest"
         last_name = "guest"
-    
+        full_name = "Guest User"
+        student_image = None
+
     context = {
         'first_name': first_name,
-        'last_name': last_name
+        'full_name': full_name,
+        'student_image': student_image
     }
+
     return render(request, 'homee/BookSec.html', context)
+
 
 def login_page(request):
         if request.method == "POST":
@@ -117,71 +131,83 @@ def register(request):
 @login_required(login_url="/login/")
 def student_info(request):
     user = request.user
+    first_name = request.user.first_name
+    last_name = request.user.last_name
 
-    student_profile, created = StudentProfile.objects.get_or_create(user=user)
+    profile, created = StudentProfile.objects.get_or_create(user=user)
 
     if request.method == "POST":
-        full_name = request.POST.get('full_name')
-        student_image = request.FILES.get('student_image')
-        phone = request.POST.get('phone')
-        education_type = request.POST.get('education_type')
-        select_branch = request.POST.get('select_branch')
+        profile.full_name = request.POST.get('full_name')
+        profile.student_image = request.FILES.get('student_image') if request.FILES.get('student_image') else profile.student_image
+        profile.phone = request.POST.get('phone')
+        profile.education_type = request.POST.get('education_type')
+        profile.select_branch = request.POST.get('select_branch')
         pursuing_year = request.POST.get('pursuing_year')
-        books_obtained = request.POST.get('books_obtained')
-
-        student_profile.full_name = full_name
-        student_profile.student_image = student_image
-        student_profile.phone = phone
-        student_profile.education_type = education_type
-        student_profile.select_branch = select_branch
-        student_profile.pursuing_year = pursuing_year
-        student_profile.books_obtained = books_obtained
-
-        student_profile.save()
+        if pursuing_year:
+            profile.pursuing_year = int(pursuing_year)
+        profile.books_obtained = request.POST.get('books_obtained')
+        
+        profile.save()
 
         messages.success(request, 'Profile updated successfully!')
-        return redirect('/profile/') 
-
-    context = {
-        'full_name': student_profile.full_name,
-        'email': user.email,  
-        'phone': student_profile.phone,
-        'education_type': student_profile.education_type,
-        'select_branch': student_profile.select_branch,
-        'pursuing_year': student_profile.pursuing_year,
-        'books_obtained': student_profile.books_obtained,
-        'student_image': student_profile.student_image.url if student_profile.student_image else None,
-    }
+        return redirect('/profile/')
     
+    context = {
+        'first_name': first_name,
+        'last_name': last_name,
+        'full_name': profile.full_name,
+        'email': user.email,
+        'phone': profile.phone,
+        'education_type': profile.education_type,
+        'select_branch': profile.select_branch,
+        'pursuing_year': profile.pursuing_year,
+        'books_obtained': profile.books_obtained,
+        'student_image': profile.student_image.url if profile.student_image else None,
+    }
 
     return render(request, 'homee/profile.html', context)
 
 
 @login_required(login_url="/login/")
 def my_profile(request):
+    try:
+        profile = StudentProfile.objects.get(user=request.user)
 
-#     if request.user.is_authenticated:
-#         full_name = request.student_profile.full_name
-#         phone = request.student_profile.phone
-#         student_image = request.student_profile.student_image
-#         education_type = request.student_profile.education_type
-#         select_branch = request.student_profile.select_branch
-#         pursuing_year = request.student_profile.pursuing_year
-#         books_obtained = request.student_profile.books_obtained
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        email = request.user.email
+        full_name = profile.full_name
+        phone = profile.phone
+        education_type = profile.education_type
+        branch = profile.select_branch
+        pursuing_year = profile.pursuing_year
+        student_image = profile.student_image
 
-    
-#     context = {
-#         'full_name': full_name,
-#         'phone': phone,
-#         'student_image':student_image,
-#         'education_type':education_type,
-#         'select_branch' : select_branch,
-#         'pursuing_year': pursuing_year,
-#         'books_obtained': books_obtained
-#     }
-     return render(request, 'homee/myProfile.html')
+    except StudentProfile.DoesNotExist:
+        profile = None
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        email = request.user.email
+        full_name = ""
+        phone = ""
+        education_type = ""
+        branch = ""
+        pursuing_year = ""
+        student_image = None
 
+    context = {
+        'first_name': first_name,
+        'last_name': last_name,
+        'email': email,
+        'full_name': full_name,
+        'phone': phone,
+        'education_type': education_type,
+        'select_branch': branch,
+        'pursuing_year': pursuing_year,
+        'student_image': student_image
+    }
 
+    return render(request, 'homee/myProfile.html', context)
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
